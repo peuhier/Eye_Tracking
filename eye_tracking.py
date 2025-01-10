@@ -42,6 +42,8 @@ def get_gaze_ratio(eye_points,facial_landmarks):
     right_side_white = cv2.countNonZero(right_side_threshold)
     if left_side_white ==0:
         return 1
+    elif right_side_white ==0:
+        return 5
     gaze_ratio = right_side_white/(left_side_white)
 
     return gaze_ratio
@@ -73,15 +75,20 @@ while True:
         gaze_ratio_right_eye = get_gaze_ratio([42,43,44,45,46,47],landmarks)
         gaze_ratio = (gaze_ratio_left_eye+gaze_ratio_right_eye)/2
 
+        new_frame = np.zeros((500,500,3), np.uint8)
+
         cv2.putText(frame, str(gaze_ratio), (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-        
         if gaze_ratio<0.7:
-            cv2.putText(frame, "LEFT", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+            cv2.putText(frame, "RIGHT", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+            new_frame[:]=(0,0,255)
         elif 0.7<gaze_ratio<1.7:
             cv2.putText(frame, "CENTER", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
         else:
-            cv2.putText(frame, "RIGHT", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-        
+            cv2.putText(frame, "LEFT", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+            new_frame[:]=(255,0,0)
+        #Showing Direction of gaze
+        cv2.imshow("Direction", new_frame)
+
 
     cv2.imshow('frame', frame)
 
