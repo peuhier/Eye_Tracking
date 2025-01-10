@@ -78,10 +78,10 @@ while True:
         new_frame = np.zeros((500,500,3), np.uint8)
 
         cv2.putText(frame, str(gaze_ratio), (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-        if gaze_ratio<0.7:
+        if gaze_ratio<1:
             cv2.putText(frame, "RIGHT", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
             new_frame[:]=(0,0,255)
-        elif 0.7<gaze_ratio<1.7:
+        elif 1<gaze_ratio<2:
             cv2.putText(frame, "CENTER", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
         else:
             cv2.putText(frame, "LEFT", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)

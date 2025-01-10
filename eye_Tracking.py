@@ -39,7 +39,7 @@ while True:
 
         eye_frame = cv2.resize(eye_frame, (0, 0), fx=5, fy=5)
         eye_frame = cv2.GaussianBlur(eye_frame,(7,7),0)
-        _,threshold = cv2.threshold(eye_frame,50,255,cv2.THRESH_BINARY_INV)
+        _,threshold = cv2.threshold(eye_frame,70,255,cv2.THRESH_BINARY_INV)
         contours,_ = cv2.findContours(threshold,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
         
         for cnt in contours:
